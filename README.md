@@ -25,7 +25,7 @@ warrant further experimental validation.
 ## Installation
 
 You can install the development version of CIBRA from
-[GitHub](https://github.com/nayfous/CIBRA) with:
+[GitHub](https://github.com/AIT4LIFE-UU/CIBRA) with:
 
 ``` r
 # install.packages("devtools")
