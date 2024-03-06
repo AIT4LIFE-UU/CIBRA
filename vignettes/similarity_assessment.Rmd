@@ -1,0 +1,107 @@
+---
+title: "CIBRA similarity score"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{CIBRA similarity score}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+In this vignette we will showcase the use of the CIBRA similarity score.
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+    message=FALSE, 
+  warning=FALSE
+)
+```
+
+```{r setup}
+library(CIBRA)
+```
+
+First we will generate a permutation distribution of the similarity and anti-similarity scores.
+Here we make use of data generated from the random permutation distribution for the CIBRA impact score.
+For the CIBRA similarity score we need adjusted p-values and foldchanges generated from DE analysis.
+```{r}
+# generate permutation similarity measures from the permutation distribution 
+# generated for the CIBRA impact score
+permutation_adj_pvalue <- CIBRA::permutation_adj_pvalue
+permutation_foldchange <- CIBRA::permutation_foldchange
+
+# transform the pvalues
+trans_pvalues <- -log10(permutation_adj_pvalue)
+
+rho_list <- c()
+Dplus_list <- c()
+Dmin_list <- c()
+
+# generate 10000 permutation similarity scores
+for (i in 1:10000) {
+  # sample colnames to compare two random samples
+  col.sets <- sample(colnames(permutation_foldchange),1)
+  col2.sets <- sample(colnames(permutation_foldchange), 1)
+  
+  # prepare data for diss score calculation
+  data1 <- data.frame(genes = rownames(permutation_foldchange), 
+                      pval = trans_pvalues[[col.sets]], 
+                      fc = permutation_foldchange[[col.sets]],
+                      type = col.sets)
+  
+  data2 <- data.frame(genes = rownames(permutation_foldchange), 
+                      pval = trans_pvalues[[col2.sets]], 
+                      fc = permutation_foldchange[[col2.sets]],
+                      type = col2.sets)
+  
+  # similarity score
+  scale_d = similarity_measures(data1, 
+                           data2, perm_mode = TRUE)
+  
+  Dplus_list <- c(Dplus_list, scale_d$dplus) # similarity score
+  Dmin_list <- c(Dmin_list, scale_d$dmin) # anti-similarity score
+  rho_list <- c(rho_list, scale_d$rho) # spearman corelation measure
+}
+
+# if a genome screen was performed, the similarity between any comparison of genomic alterations can be used as a reference similarity distribution. Herein, the assumption is made that any random genomic alteration within the genome has a dissimilar effect compared to any other random genomic alteration in the genome.
+
+```
+
+Now that we have the permutation distributions, we can compare the similarity between APC exon 7 and 16 variants.
+
+```{r}
+# read pvalue and fc data for gene of interest (APC exons in this example)
+pvalues <- CIBRA::APC_definition_padj_values
+fc <- CIBRA::APC_definition_foldchange
+trans_pvalues <- -log10(pvalues)
+
+# set variables for the permutation distributions
+perm_dist <- rho_list
+perm_dplus <- Dplus_list
+perm_dmin <- Dmin_list
+
+
+# one sided test for the correlation measure
+abs_perm_dist <- abs(perm_dist)
+abs_perm_dist <- abs_perm_dist[!is.na(abs_perm_dist)]
+
+# select data of the exons of interest, in this example exon 7 and 16 will be compared
+APC_exon_16 <- data.frame(genes = rownames(fc),
+                                  pval = trans_pvalues$Transcript.APC.201_X16,
+                                  fc = fc$Transcript.APC.201_X16,
+                                  type = "APC exon 16")
+APC_exon_7 <- data.frame(genes = rownames(fc),
+                                  pval = trans_pvalues$Transcript.APC.201_X7,
+                                  fc = fc$Transcript.APC.201_X7,
+                                  type = "APC exon 7")
+
+
+apc_res <- similarity_measures(data1 = APC_exon_7, data2 = APC_exon_16,
+                              cond1 = stringr::str_replace_all(unique(APC_exon_7$type), " ", "_"),
+                              cond2 = stringr::str_replace_all(unique(APC_exon_16$type), " ", "_"),
+                              abs_perm_dist = abs_perm_dist, 
+                              perm_dplus =  perm_dplus, 
+                              perm_dmin = perm_dmin)
+```
+

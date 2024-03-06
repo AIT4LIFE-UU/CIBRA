@@ -1,0 +1,16 @@
+citHeader("To cite CIBRA in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "ND",
+  author   = "ND",
+  journal  = "ND",
+  year     = "ND",
+  volume   = "ND",
+  number   = "ND",
+  pages    = "ND",
+  url      = "ND",
+  textVersion = paste("ND"
+
+  )
+)

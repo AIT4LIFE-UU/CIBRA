@@ -1,0 +1,113 @@
+---
+title: "Refining alterations on mutation type"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Refining alterations on mutation type}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+    message=FALSE, 
+  warning=FALSE
+)
+```
+
+In this vignette, we will use CIBRA to identify the most impactfull mutation type.
+We will make use of WES data and RNA-seq data from the TCGA, specifically from colorectal cancer.
+
+```{r setup}
+# libraries
+library(BiocParallel)
+library(stringr)
+library(dplyr)
+library(CIBRA)
+```
+
+```{r}
+# load data
+count_data <- CIBRA::TCGA_CRC_rna_data # rna count data
+
+# genomic alteration profile
+genomic_metrics <- CIBRA::genomic_alteration_profile
+
+# remove letter to match sample names of genomic metrics
+colnames(count_data) <- str_sub(colnames(count_data), end = -2)
+```
+
+For the refinement on mutation type, we create a definition matrix with the mutation types we want to assess compared to the reference condition. In this example, we are exploring SNV and SCNAs and their combination.
+
+```{r}
+# process the genomic alteration profile for the definition matrix
+
+# select genes of interest
+goi <- c("APC", "TP53", "KRAS", "BRAF", "PIK3CA", "TTN")
+
+definition_matrix <- genomic_metrics[goi]
+rownames(definition_matrix) <- str_replace_all(rownames(definition_matrix), "-", ".")
+
+# process the alteration definition
+mutate_definition <- function(x) {
+  s <- case_when(
+    !str_detect(x, patter = "([gain|loss|break])|(^wt$)") ~ "snv", # SNV only
+    !str_detect(x, pattern = c("mut|(^wt$)")) ~ "scna", # SCNA only
+    str_detect(x, pattern = c("(mut;[gain|loss])")) ~ "snv_scna", # the combination
+    TRUE ~ "wt"
+  )
+  return(s)
+}
+
+definition_matrix <- definition_matrix %>% mutate_all(
+  mutate_definition
+)
+
+# match data between definition matrix and the count data
+sample_list <- intersect(rownames(definition_matrix), colnames(count_data))
+
+data <- count_data[sample_list]
+definition_matrix <- definition_matrix[sample_list,]
+```
+
+Now that we have created the definition matrix and prepared the RNA count data, we can run CIBRA. 
+We can select a subset of columns we want to asssess. CIBRA automatically assesses all definitions within the column against the control_definition provided. 
+
+```{r}
+# focus on the genes of interest
+columns <- c("TP53", "APC", "KRAS", "BRAF", "PIK3CA", "TTN")
+
+# set up parameters for CIBRA
+control_definition <- "wt" # reference condition
+confidence <- 0.1 # confidence threshold for the proportion calculation
+# set permutation to 0 to skip permutations
+iterations = 0 # number of permutation iterations to be performed per condition
+
+register(SnowParam(4)) # set number of cores to be used
+
+# run CIBRA
+CIBRA_res <- run_CIBRA(count_data, as.data.frame(definition_matrix), columns, 
+                       control_definition, confidence, iterations, 
+                       parallel = TRUE)
+```
+
+From the results below, it can be observed that the most impactful definition is different for each gene and depends on what type of gene it is. For example for the tumor suppressor genes TP53 and APC, the combination of SNV and SCNA results in the highest impact score. While for the oncogene BRAF, only SNVs give the highest score.
+```{r}
+# print the report table
+knitr::kable(CIBRA_res$CIBRA_results, format = "html")
+```
+
+To also assess the significance of the score, we can perform the gamma inferred permutation test.
+
+```{r}
+# calculate the pvalue by comparing to a reference distribution
+perm_data <- CIBRA::perm_dist_crc_tcga
+
+# use the gamma test to also calculate a fitted p-value
+CIBRA_res_stat <-  permutation_test(CIBRA_res$CIBRA_results, perm_data, test = "gamma")
+
+# print the report table
+knitr::kable(CIBRA_res_stat$results, format = "html")
+```
+

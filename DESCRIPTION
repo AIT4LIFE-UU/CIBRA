@@ -1,0 +1,41 @@
+Package: CIBRA
+Type: Package
+Title: CIBRA: Computational Identification of Biologically Relevant Alterations
+Version: 0.1.0
+Description: CIBRA is a computational method that determines the system-wide impact 
+    of genomic alterations by integrating genomics with transcriptomics data.
+License: AGPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+biocViews:
+Imports: 
+    DESeq2,
+    limma,
+    BioNet,
+    edgeR,
+    dplyr,
+    fitdistrplus,
+    ggplot2,
+    ggpmisc,
+    ggthemes,
+    data.table,
+    stringr,
+    tidyverse,
+    hrbrthemes,
+    circlize,
+    ComplexHeatmap,
+    ggprism,
+    grid,
+    tibble,
+    tidyr
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)
+Authors@R: 
+    person("Soufyan", "Lakbir", , "s.lakbir@vu.nl", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-8521-4408"))

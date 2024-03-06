@@ -1,0 +1,96 @@
+---
+title: "Refining alterations on genomic location"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Refining alterations on genomic location}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Similarly to the vignette titled: "Refining alterations on mutation type", in this vignette we will refine on the genomic location of the alteration.  
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  message=FALSE, 
+  warning=FALSE
+)
+```
+
+```{r setup}
+library(CIBRA)
+library(BiocParallel)
+library(stringr)
+library(dplyr)
+```
+
+We will explore the impact of variants affecting different exons in APC. To scan through genomic locations using CIBRA, the definition matrix can be set up in an extended format where samples can be assigned to multiple definitions. In this setting, it is important to have a sample column.
+
+```{r}
+# load data
+count_data <- CIBRA::TCGA_CRC_rna_data # rna count data
+
+# genomic alteration profile
+definition_matrix <- CIBRA::TCGA_APC_exon_definition_transcript_201
+
+# remove rownames column
+definition_matrix$...1 <- NULL
+
+# remove letter to match sample names of genomic metrics
+colnames(count_data) <- make.names(str_sub(colnames(count_data), end = -2))
+
+# create barcode from sample ids
+definition_matrix$samples <- substr(definition_matrix$samples, 1, 15)
+
+# create valid names to match count data
+definition_matrix = dplyr::mutate_all(definition_matrix, make.names)
+
+# correct the colnames of the definition matrix (CIBRA takes only proper colnames)
+colnames(definition_matrix) <- make.names(colnames(definition_matrix))
+```
+
+We will select the column with the exon definitions and exclude the sample column. In this way, we will only test the column we have selected with the definitions. Because we are running the definition matrix in the extended mode, we need to indicate the sample column name. In this way CIBRA is aware that there can be duplicate sample names. It will run CIBRA for each definition compared to the control definition.
+
+```{r}
+# select columns with definition
+columns = colnames(definition_matrix)
+columns = columns[columns != "samples"] # exclude sample column
+
+# set up parameters for CIBRA
+control_definition <- "no.SNV" # reference condition
+confidence <- 0.1 # confidence threshold for the proportion calculation
+# set permutation to 0 to skip permutations
+iterations = 0 # number of permutation iterations to be performed per condition
+
+register(SnowParam(4)) # set number of cores to be used
+  
+# select column with definitions
+group = definition_matrix
+
+# run CIBRA
+CIBRA_res <- run_CIBRA(data = count_data,definition_matrix = as.data.frame(definition_matrix),columns = columns,
+                       control_definition = control_definition, confidence = confidence, 
+                       iterations = iterations,
+                       sample_column = "samples",
+                       parallel = TRUE)
+```
+
+The results are now structured as the exon number (def) and the column we selected as "col". The number of cases is provided by the investigated column.
+
+```{r}
+# print the report table
+knitr::kable(CIBRA_res$CIBRA_results, format = "html")
+```
+
+```{r}
+# calculate the pvalue by comparing to a reference distribution
+perm_data <- CIBRA::perm_dist_crc_tcga
+
+# use the gamma test to also calculate a fitted p-value
+CIBRA_res_stat <-  permutation_test(CIBRA_res$CIBRA_results, perm_data, test = "gamma")
+
+# print the report table
+knitr::kable(CIBRA_res_stat$results, format = "html")
+```
+

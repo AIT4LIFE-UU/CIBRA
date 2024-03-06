@@ -1,0 +1,139 @@
+---
+title: "CIBRA impact score for a genomic alteration"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{CIBRA impact score for a genomic alteration}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+In this vignette we will explore the use of the CIBRA impact score to assess the impact of a genomic alteration.
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  message=FALSE, 
+  warning=FALSE
+)
+```
+
+```{r setup}
+# load functions
+library(CIBRA)
+library(BiocParallel)
+```
+
+We will make use of RNA count data and matched mutation data from the TCGA for colorectal cancer.
+
+```{r}
+# load transcription data and genomic alterations
+count_data <- CIBRA::TCGA_CRC_rna_data
+mutation_profile <- CIBRA::TCGA_CRC_non_silent_mutation_profile
+```
+
+## Prepare a definition matrix for analysis which indicates which samples are cases and controls.
+In this example we will only focus on 6 genes: the tumor suppressor genes APC and TP53, the oncogenes KRAS, BRAF and PIK3CA and 
+the often mutated gene TTN in colorectal cancer.
+
+```{r}
+# prepare data for CIBRA
+
+# select genes of interest
+goi <- c("APC", "TP53", "KRAS", "BRAF", "PIK3CA", "TTN", "MACROD2")
+
+# filter mutation profile for only selected genes
+definition_matrix <- mutation_profile[goi]
+
+# fix sample names for intersect between the two datatypes
+rownames(definition_matrix) <- stringr::str_replace_all(rownames(definition_matrix), "-", ".")
+
+# select intersect between definition matrix and count data
+sample_list <- intersect(rownames(definition_matrix), colnames(count_data))
+
+# select data and definition matrix as the intersect
+count_data <- count_data[sample_list]
+definition_matrix <- definition_matrix[sample_list,]
+
+# optional to visualize datafrane
+if (!require("DT")) install.packages('DT')
+DT::datatable(definition_matrix)
+```
+
+## Set the parameters to use with CIBRA and run CIBRA. 
+You can provide a larger definition matrix and indicate which columns to test in CIBRA.
+The number of permutation iterations to perform is recommended to be 50 to give an indication of the intrinsic variation in the dataset given the size of cases and control. 
+However to make the example run quicker we have set it to 0 which turns of the internal permutation. 
+
+```{r}
+# focus on APC
+columns <- c("APC")
+
+# set up parameters for CIBRA
+control_definition <- "WT" # reference condition
+confidence <- 0.1 # confidence threshold for the proportion calculation
+# set permutation to 0 to skip permutations
+iterations = 0 # number of permutation iterations to be performed per condition
+
+register(SnowParam(4)) # set number of cores to be used
+
+# run CIBRA with default DE analysis method (DESeq2)
+CIBRA_res <- run_CIBRA(count_data, as.data.frame(definition_matrix), 
+                       columns = columns, 
+                       control_definition = control_definition, 
+                       confidence = confidence, 
+                       iterations = iterations, 
+                       parallel = TRUE)
+```
+
+The results are reported as the tested definition (def), which are SNVs in this case, the column assessed (col) which is the gene we have assessed. The proportion and significant area (sign_area) are the impact measures reported. The number of cases (investigated) and controls are reported. Moreover, if the iterations where not set to 0, the average permutation signal measures and the standard deviation would have been reported.
+
+```{r}
+# print the report table
+knitr::kable(CIBRA_res$CIBRA_results, format = "html")
+```
+
+## Assess significance of the signal measures
+When performing the permutation test or the gamma fitted estimate, additional columns with the p-values will be added to the results. "perm_test_prop" and "perm_test_sign_area" are the p-values generated with the standard permutation test given the permutation distribution provided. "pvalue_prop" and "pvalue_sign_area" are the pvalues generated from the fitted Gamma distribution. 
+
+```{r}
+# calculate the pvalue by comparing to a reference distribution generated with DESeq2
+perm_data <- CIBRA::perm_dist_crc_tcga
+
+# use the gamma test to also calculate a fitted p-value
+CIBRA_res_stat <-  permutation_test(CIBRA_res$CIBRA_results, perm_data, test = "gamma")
+
+# print the report table
+knitr::kable(CIBRA_res_stat$results, format = "html")
+```
+
+## Alternative differential expression analysis methods
+
+The default DE method used by CIBRA is DESeq2. However, edgeR and Limma-Voom are also supported.
+
+```{r}
+# run CIBRA with Limma-Voom
+CIBRA_limma_voom <- run_CIBRA(count_data, as.data.frame(definition_matrix), 
+                              columns = columns,
+                              control_definition = control_definition, 
+                              confidence = confidence, 
+                              iterations = iterations, 
+                              parallel = TRUE, method = "limma")
+
+# print the report table
+knitr::kable(CIBRA_limma_voom$CIBRA_results, format = "html")
+```
+
+```{r}
+# run CIBRA with EdgeR
+CIBRA_edger <- run_CIBRA(count_data, as.data.frame(definition_matrix), 
+                              columns = columns,
+                              control_definition = control_definition, 
+                              confidence = confidence, 
+                              iterations = iterations, 
+                              parallel = TRUE, method = "edger")
+
+# print the report table
+knitr::kable(CIBRA_edger$CIBRA_results, format = "html")
+```
+

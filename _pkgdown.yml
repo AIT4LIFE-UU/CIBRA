@@ -1,0 +1,8 @@
+url: ~
+template:
+  bootstrap: 5
+  theme: github-light
+  bootswatch: lux
+  bslib:
+    pkgdown-nav-height: 100px
+
