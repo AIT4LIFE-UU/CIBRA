@@ -32,6 +32,9 @@ You can install the development version of CIBRA from
 devtools::install_github("AIT4LIFE-UU/CIBRA")
 ```
 
+## Contact
+If you encounter any issues with the package or have questions please contact Soufyan Lakbir (s.lakbir@vu.nl) or place an issue.
+
 ## Example
 
 For extensive examples of the utility of CIBRA, please consult the
