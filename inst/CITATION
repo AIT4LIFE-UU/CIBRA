@@ -2,8 +2,8 @@ citHeader("To cite CIBRA in publications use:")
 
 citEntry(
   entry    = "Article",
-  title    = "ND",
-  author   = "ND",
+  title    = "CIBRA identifies genomic alterations with a system-wide impact on tumor biology",
+  author   = c("Soufyan Lakbir", "Caterina Buranelli", "Gerrit A. Meijer", "Jaap Heringa", "Remond J. A. Fijneman", "Sanne Abeln"),
   journal  = "ND",
   year     = "ND",
   volume   = "ND",
