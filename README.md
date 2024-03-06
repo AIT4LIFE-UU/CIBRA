@@ -25,11 +25,11 @@ warrant further experimental validation.
 ## Installation
 
 You can install the development version of CIBRA from
-[GitHub](https://github.com/nayfous/CIBRA) with:
+[GitHub](https://github.com/AIT4LIFE-UU/CIBRA) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("nayfous/CIBRA")
+devtools::install_github("AIT4LIFE-UU/CIBRA")
 ```
 
 ## Example
@@ -194,8 +194,9 @@ p <- ggplot(plot_data, aes(y = as.numeric(sign_area),
 print(p)
 ```
 
-<img src="man/figures/README-visualize-1.png" width="100%" /> \## Other
-examples
+<img src="man/figures/README-visualize-1.png" width="100%" /> 
+
+## Other examples
 
 A basic example to estimate the system-wide impact of a genomic
 alteration: [Basic assessment of the impact of a genomic
