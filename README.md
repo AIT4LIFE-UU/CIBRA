@@ -194,8 +194,9 @@ p <- ggplot(plot_data, aes(y = as.numeric(sign_area),
 print(p)
 ```
 
-<img src="man/figures/README-visualize-1.png" width="100%" /> \## Other
-examples
+<img src="man/figures/README-visualize-1.png" width="100%" /> 
+
+## Other examples
 
 A basic example to estimate the system-wide impact of a genomic
 alteration: [Basic assessment of the impact of a genomic
