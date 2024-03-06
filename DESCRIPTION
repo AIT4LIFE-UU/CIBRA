@@ -39,3 +39,4 @@ Depends:
 Authors@R: 
     person("Soufyan", "Lakbir", , "s.lakbir@vu.nl", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-8521-4408"))
+URL: https://ait4life-uu.github.io/CIBRA/
