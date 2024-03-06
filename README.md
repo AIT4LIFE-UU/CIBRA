@@ -29,7 +29,7 @@ You can install the development version of CIBRA from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("nayfous/CIBRA")
+devtools::install_github("AIT4LIFE-UU/CIBRA")
 ```
 
 ## Example
