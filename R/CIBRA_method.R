@@ -310,6 +310,8 @@ run_CIBRA <- function(data,
 #' @param control_list vector of number of controls to test (vector)
 #' @param iterations number of interations (int)
 #' @param covariates list of column names from the definition matrix to use as covariates (supported only with DESeq2)
+#' @param covariate_matrix design dataframe of the covariates,
+#'   columns to take along as covariate values and samples as rownames.
 #' @param parallel boolean status if the run should be done in parallel (boolean)
 #' @param method method to perform the differential expression analysis, supported methods are DESeq2, edgeR and limma
 #' @param permutation permutation style to perform, either full where all values
@@ -585,6 +587,7 @@ permutation_test <- function(results, perm_dist, test = "perm") {
 #' @import ggplot2
 #' @import ggpmisc
 #' @import ggthemes
+#' @import ggprism
 #' @import data.table
 #' @import stringr
 #' @import tidyverse

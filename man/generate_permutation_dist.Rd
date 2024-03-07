@@ -34,6 +34,9 @@ the comparison (e.g. WT)}
 
 \item{covariates}{list of column names from the definition matrix to use as covariates (supported only with DESeq2)}
 
+\item{covariate_matrix}{design dataframe of the covariates,
+columns to take along as covariate values and samples as rownames.}
+
 \item{parallel}{boolean status if the run should be done in parallel (boolean)}
 
 \item{method}{method to perform the differential expression analysis, supported methods are DESeq2, edgeR and limma}

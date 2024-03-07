@@ -20,6 +20,7 @@ Imports:
     ggplot2,
     ggpmisc,
     ggthemes,
+    ggprism,
     data.table,
     stringr,
     tidyverse,
