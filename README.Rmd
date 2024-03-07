@@ -25,12 +25,15 @@ Cancer is characterized by genomic instability. Identifying which somatic altera
 
 ## Installation
 
-You can install the development version of CIBRA from [GitHub](https://github.com/nayfous/CIBRA) with:
+You can install the development version of CIBRA from [GitHub](https://github.com/AIT4LIFE-UU/CIBRA) with:
 
 ```r
 # install.packages("devtools")
-devtools::install_github("nayfous/CIBRA")
+devtools::install_github("AIT4LIFE-UU/CIBRA")
 ```
+
+## Contact
+If you encounter any issues with the package or have questions please contact Soufyan Lakbir (s.lakbir@vu.nl) or place an issue.
 
 ## Example
 For extensive examples of the utility of CIBRA, please consult the vignettes.
