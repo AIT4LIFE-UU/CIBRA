@@ -17,7 +17,7 @@ Imports:
     edgeR,
     dplyr,
     fitdistrplus,
-    ggplot2 (<= 3.4.4),
+    ggplot2 (>= 3.4.4),
     ggpmisc,
     ggthemes,
     data.table,
