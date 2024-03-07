@@ -772,7 +772,7 @@ volcano_de_state_plot <- function(fc, pval, link_column, condition_column, state
     geom_line(data = plot_data[plot_data$state_column %in% c("DEmin"),],
               aes(group = link_column, color = state_column, alpha = state_column), size = 1) +
     xlab(bquote(~bold(log[2] ~ '(fold change)'))) +
-    ylab(bquote(~bold(-log[10] ~"(adjusted p-value)"))) + ggprism::theme_prism() +
+    ylab(bquote(~bold(-log[10] ~"(adjusted p-value)"))) + #ggprism::theme_prism() +
     xlim(c(-1*fc_lim, fc_lim)) +
     scale_size_continuous(range = c(1, 2.5)) +
     scale_color_manual(name = "similarity state", values = c("DEdiss" = "black", "DEplus" = "#f1a340",
