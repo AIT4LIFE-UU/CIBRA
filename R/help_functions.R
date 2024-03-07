@@ -783,7 +783,7 @@ volcano_de_state_plot <- function(fc, pval, link_column, condition_column, state
                        labels = c("DEdiss" = "Dissimilarity", "DEplus" = "Similarity",
                                   "DEmin" = "Anti-similarity")) +
     scale_fill_discrete(na.translate = F) +
-    labs(fill = "condition") +
+    labs(fill = "condition")  +
     theme(axis.text = element_text(face="bold", size = 16),
           axis.title = element_text(face="bold", size = 22),
           legend.text = element_text(face = "bold", size = 12),
