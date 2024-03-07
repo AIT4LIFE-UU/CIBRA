@@ -1,0 +1,15 @@
+pandoc: 3.1.11
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  alteration_type_refinement: alteration_type_refinement.html
+  genome_wide_screen: genome_wide_screen.html
+  genomic_location_refinement: genomic_location_refinement.html
+  impact_assessment_genomic_alteration: impact_assessment_genomic_alteration.html
+  reference_permutation_distribution: reference_permutation_distribution.html
+  similarity_assessment: similarity_assessment.html
+last_built: 2024-03-07T09:00Z
+urls:
+  reference: https://ait4life-uu.github.io/CIBRA/reference
+  article: https://ait4life-uu.github.io/CIBRA/articles
+
