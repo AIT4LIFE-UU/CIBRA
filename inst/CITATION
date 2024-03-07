@@ -4,13 +4,9 @@ citEntry(
   entry    = "Article",
   title    = "CIBRA identifies genomic alterations with a system-wide impact on tumor biology",
   author   = c("Soufyan Lakbir", "Caterina Buranelli", "Gerrit A. Meijer", "Jaap Heringa", "Remond J. A. Fijneman", "Sanne Abeln"),
-  journal  = "ND",
-  year     = "ND",
-  volume   = "ND",
-  number   = "ND",
-  pages    = "ND",
-  url      = "ND",
-  textVersion = paste("ND"
-
-  )
+  doi      = "10.48550/arXiv.2403.03829",
+  journal  = "arXiv",
+  year     = "2024",
+  month    = "march",
+  url      = "http://arxiv.org/abs/2403.03829"
 )
