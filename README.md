@@ -6,21 +6,9 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/nayfous/CIBRA/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nayfous/CIBRA/actions/workflows/R-CMD-check.yaml)
-<!-- badges: end --> Cancer is characterized by genomic instability.
-Identifying which somatic alterations have a high impact on tumor
-biology is a challenging task. We developed CIBRA, a computational
-method that determines the system-wide impact of genomic alterations on
-tumor biology by integrating genomics with transcriptomics data. The
-performance of CIBRA was evaluated by a genome-wide screen in 33 cancer
-types using data from primary and metastatic cancer. CIBRA successfully
-confirmed the impact of point mutations in experimentally validated
-oncogenes and tumor suppressor genes. Moreover, CIBRA identified many
-novel genes affected by structural variants with a significant
-system-wide impact on tumor biology similar to known oncogenes and tumor
-suppressor genes. CIBRA can identify both the impactful mutation types
-and subregions of genes requiring only 10 cases and controls. In this
-way, CIBRA enables prioritization of genomic alterations in silico that
-warrant further experimental validation.
+<!-- badges: end --> 
+Cancer is characterized by genomic instability. Identifying which somatic alterations have a high impact on tumor biology is a challenging task. We developed CIBRA, a computational method that determines the system-wide impact of genomic alterations on
+tumor biology by integrating genomics with transcriptomics data. The performance of CIBRA was evaluated by a genome-wide screen in 33 cancer types using data from primary and metastatic cancer. CIBRA successfully confirmed the impact of point mutations in experimentally validated oncogenes and tumor suppressor genes. Moreover, CIBRA identified many novel genes affected by structural variants with a significant system-wide impact on tumor biology similar to known oncogenes and tumor suppressor genes. CIBRA can identify both the impactful mutation types and subregions of genes requiring only 10 cases and controls. In this way, CIBRA enables prioritization of genomic alterations in silico that warrant further experimental validation.
 
 ## Installation
 
@@ -32,13 +20,10 @@ You can install the development version of CIBRA from
 devtools::install_github("AIT4LIFE-UU/CIBRA")
 ```
 
-## Contact
-If you encounter any issues with the package or have questions please contact Soufyan Lakbir (s.lakbir@vu.nl) or place an issue.
-
 ## Example
 
 For extensive examples of the utility of CIBRA, please consult the
-vignettes.
+[vignettes](ait4life-uu.github.io/CIBRA/).
 
 ``` r
 # load functions
@@ -199,24 +184,9 @@ print(p)
 
 <img src="man/figures/README-visualize-1.png" width="100%" /> 
 
-## Other examples
+## Contact
+For questions, suggestions, or bug reports, please send an e-mail to Soufyan Lakbir (s.lakbir@vu.nl).
 
-A basic example to estimate the system-wide impact of a genomic
-alteration: [Basic assessment of the impact of a genomic
-alteration](vignettes/impact_assessment_genomic_alteration.html)
+if you use (CIBRA)[ait4life-uu.github.io/CIBRA/] in published research, please cite:
+Lakbir, S. et al. CIBRA identifies genomic alterations with a system-wide impact on tumor biology. Preprint at https://doi.org/10.48550/arXiv.2403.03829 (2024).
 
-An example for generating a reference permutation distribution for
-statistical testing: [genereting reference permutation
-distribution](vignettes/reference_permutation_distribution.html)
-
-An example for refining on type of alteration: [Refining on alteration
-type](vignettes/alteration_type_refinement.html)
-
-An example to set up a genome-wide screen: [Genome-wide
-screen](vignettes/genome_wide_screen.html)
-
-An example to refine on genomic location: [Refining on genomic
-location](vignettes/genomic_location_refinement.html)
-
-An example to assess the similarity between two alterations: [Assessing
-similarity between alterations](vignettes/similarity_assessment.html)
