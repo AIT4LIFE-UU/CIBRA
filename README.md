@@ -23,7 +23,7 @@ devtools::install_github("AIT4LIFE-UU/CIBRA")
 ## Example
 
 For extensive examples of the utility of CIBRA, please consult the
-[vignettes](ait4life-uu.github.io/CIBRA/).
+[vignettes](https://ait4life-uu.github.io/CIBRA/).
 
 ``` r
 # load functions
