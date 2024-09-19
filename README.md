@@ -188,5 +188,4 @@ print(p)
 For questions, suggestions, or bug reports, please send an e-mail to Soufyan Lakbir (s.lakbir@vu.nl).
 
 if you use [CIBRA](ait4life-uu.github.io/CIBRA/) in published research, please cite:
-Lakbir, S. et al. CIBRA identifies genomic alterations with a system-wide impact on tumor biology. Preprint at [https://doi.org/10.48550/arXiv.2403.03829](https://doi.org/10.48550/arXiv.2403.03829) (2024).
-
+Lakbir S, et al. CIBRA identifies genomic alterations with a system-wide impact on tumor biology. Bioinformatics. 2024 Sep 1;40(Suppl 2):ii37-ii44. doi: 10.1093/bioinformatics/btae384. PMID: 39230704; PMCID: PMC11373315.
