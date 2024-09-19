@@ -1,81 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/404.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/articles/alteration_type_refinement.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/articles/genome_wide_screen.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/articles/genomic_location_refinement.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/articles/impact_assessment_genomic_alteration.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/articles/reference_permutation_distribution.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/articles/similarity_assessment.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/reference/BUM_dens_sign.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/reference/DESeq2_test.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/reference/Limma_v_test.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/reference/dissimilarity_correlation.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/reference/edgeR_test.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/reference/generate_permutation_dist.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/reference/permutation_test.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/reference/randomization.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/reference/run_CIBRA.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/reference/scale_distance.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/reference/score_assignment.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/reference/signal_measures.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/reference/similarity_measures.html</loc>
-  </url>
-  <url>
-    <loc>https://ait4life-uu.github.io/CIBRA/reference/volcano_de_state_plot.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://ait4life-uu.github.io/CIBRA/404.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/LICENSE.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/articles/alteration_type_refinement.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/articles/genome_wide_screen.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/articles/genomic_location_refinement.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/articles/impact_assessment_genomic_alteration.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/articles/index.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/articles/reference_permutation_distribution.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/articles/similarity_assessment.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/authors.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/index.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/reference/BUM_dens_sign.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/reference/DESeq2_test.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/reference/Limma_v_test.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/reference/dissimilarity_correlation.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/reference/edgeR_test.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/reference/generate_permutation_dist.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/reference/index.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/reference/permutation_test.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/reference/randomization.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/reference/run_CIBRA.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/reference/scale_distance.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/reference/score_assignment.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/reference/signal_measures.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/reference/similarity_measures.html</loc></url>
+<url><loc>https://ait4life-uu.github.io/CIBRA/reference/volcano_de_state_plot.html</loc></url>
 </urlset>
+
